@@ -1,0 +1,6 @@
+.DS_Store
+build/
+archive/
+*.out
+*.o
+*.dSYM/
