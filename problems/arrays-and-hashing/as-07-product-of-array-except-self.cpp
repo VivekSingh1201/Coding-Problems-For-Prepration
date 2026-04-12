@@ -9,23 +9,23 @@ using namespace std;
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int n=nums.size();
+        vector<int> ans(nums.size(), 1);
 
-        vector<int> prePro(n);
-        prePro[0]=1;
-
-        for(int i=1;i<n;i++){
-            prePro[i]=prePro[i-1]*nums[i-1];
+        int left = 1;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            ans[i] *= left;
+            left *= nums[i];
         }
 
-        int right=1;
-
-        for(int i=n-1;i>=0;i--){
-            prePro[i]*=right;
-            right*=nums[i];
+        int right = 1;
+        for(int i = nums.size() - 1; i >= 0; --i)
+        {
+            ans[i] *= right;
+            right *= nums[i];
         }
-        
-        return prePro;
+
+        return ans;
     }
 };
 
