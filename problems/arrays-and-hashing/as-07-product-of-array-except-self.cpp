@@ -6,26 +6,34 @@
 #include<string>
 using namespace std;
 
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n=nums.size();
+
+        vector<int> prePro(n);
+        prePro[0]=1;
+
+        for(int i=1;i<n;i++){
+            prePro[i]=prePro[i-1]*nums[i-1];
+        }
+
+        int right=1;
+
+        for(int i=n-1;i>=0;i--){
+            prePro[i]*=right;
+            right*=nums[i];
+        }
+        
+        return prePro;
+    }
+};
+
 int main() {
-    vector<int> arr = {10,3,0,6,0};
-    vector<int>res;
-    int n = arr.size();
+    vector<int> arr = {-1,1,0,-3,3};
     
-    int total=1;
-    
-    for(int ele : arr){
-        if(ele==0){
-            continue;
-        }
-        total *= ele;
-    }
-    
-    for(int ele : arr){
-        if(ele==0){
-            ele=1;
-        }
-        res.push_back(total/ele);
-    }
+    Solution sol;
+    vector<int> res = sol.productExceptSelf(arr);
     
     for(int ele : res){
         cout<<ele<<" ";
